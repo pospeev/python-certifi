@@ -5,8 +5,6 @@ certifi.py
 This module returns the installation location of cacert.pem or its contents.
 """
 import os
-import types
-from typing import Union
 
 try:
     from importlib.resources import path as get_path, read_text
@@ -40,19 +38,11 @@ try:
 
 
 except ImportError:
-    Package = Union[types.ModuleType, str]
-    Resource = Union[str, "os.PathLike"]
-
     # This fallback will work for Python versions prior to 3.7 that lack the
     # importlib.resources module but relies on the existing `where` function
     # so won't address issues with environments like PyOxidizer that don't set
     # __file__ on modules.
-    def read_text(
-        package: Package,
-        resource: Resource,
-        encoding: 'utf-8',
-        errors: 'strict'
-    ):
+    def read_text(_module, _path, encoding: 'utf-8'):
         with open(where(), encoding=encoding) as data:
             return data.read()
 
