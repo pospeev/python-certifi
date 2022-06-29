@@ -42,7 +42,7 @@ except ImportError:
     # importlib.resources module but relies on the existing `where` function
     # so won't address issues with environments like PyOxidizer that don't set
     # __file__ on modules.
-    def read_text(_module, _path, encoding: 'utf-8'):
+    def read_text(_module, _path, encoding='utf-8'):
         with open(where(), encoding=encoding) as data:
             return data.read()
 
