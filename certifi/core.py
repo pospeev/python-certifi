@@ -14,7 +14,7 @@ try:
     _CACERT_CTX = None
     _CACERT_PATH = None
 
-    def where() -> str:
+    def where():
         # This is slightly terrible, but we want to delay extracting the file
         # in cases where we're inside of a zipimport situation until someone
         # actually calls where(), but we don't want to re-extract the file
@@ -50,19 +50,19 @@ except ImportError:
     def read_text(
         package: Package,
         resource: Resource,
-        encoding: str = 'utf-8',
-        errors: str = 'strict'
-    ) -> str:
+        encoding: 'utf-8',
+        errors: 'strict'
+    ):
         with open(where(), encoding=encoding) as data:
             return data.read()
 
     # If we don't have importlib.resources, then we will just do the old logic
     # of assuming we're on the filesystem and munge the path directly.
-    def where() -> str:
+    def where():
         f = os.path.dirname(__file__)
 
         return os.path.join(f, "cacert.pem")
 
 
-def contents() -> str:
+def contents():
     return read_text("certifi", "cacert.pem", encoding="ascii")
